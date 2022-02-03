@@ -1,0 +1,11 @@
+# start RTSP streaming server, RTSP over WS server
+docker-compose up -d
+
+# play RTSP - direct (example VLC -> open network)
+rtsp://<this_server_ip>:554/badminton.mp4
+
+# play in browser player
+http://<this_server_ip>:8888/test/h264w.html
+
+# URL for player to play, (internal rtsp host used to proxy to)
+rtsp://rtsp:8554/badminton.mp4
