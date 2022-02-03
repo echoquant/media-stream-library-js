@@ -1,5 +1,6 @@
 # Logs
 *.log
+*.mp4
 
 # Coverage directory (tests with coverage)
 coverage/

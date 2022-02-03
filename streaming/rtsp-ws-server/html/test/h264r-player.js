@@ -1,0 +1,24 @@
+const { pipelines } = window.mediaStreamLibrary
+
+const play = (host) => {
+  // Grab a reference to the video element
+  const mediaElement = document.querySelector('video')
+
+  // Setup a new pipeline
+  const pipeline = new pipelines.Html5VideoPipeline({
+    //    ws: { uri: `ws://${host}:8854/` },
+    ws: { uri: `ws://${host}:8854/h264r` },
+    rtsp: { uri: `rtsp://localhost:554/badminton.mp4` },
+    mediaElement,
+  })
+  pipeline.ready.then(() => {
+    pipeline.rtsp.play()
+  })
+  pipeline.onSourceOpen = (mse) => {
+    // Setting a duration of zero seems to force lower latency
+    // on Firefox, and doesn't seem to affect Chromium.
+    mse.duration = 0
+  }
+}
+
+play(window.location.hostname)
