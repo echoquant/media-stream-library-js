@@ -164,6 +164,8 @@ export class BoxBuilder {
       const payloadType = media.rtpmap.payloadType
       const encoding = media.rtpmap.encodingName
 
+      console.log(`encoding ${encoding}, payloadType: ${payloadType}, format: ${formatDefaults[encoding]}`)
+
       if (formatDefaults[encoding] !== undefined) {
         // We know how to handle this encoding, add a new track for it, and
         // register the track for this payloadType.
@@ -217,12 +219,12 @@ export class BoxBuilder {
     // The RTP timestamps are unsigned 32 bit and will overflow
     // at some point. We can guard against the overflow by ORing with 0,
     // which will bring any difference back into signed 32-bit domain.
-    const duration =
-      trackData.lastTimestamp !== 0
-        ? (timestamp - trackData.lastTimestamp) | 0
-        : trackData.defaultFrameDuration
-
-    trackData.lastTimestamp = timestamp
+    const _duration = trackData.lastTimestamp !== 0 ? timestamp - trackData.lastTimestamp | 0 : trackData.defaultFrameDuration;
+    // if (_duration < 0) {
+    //   console.log(`MOOF duration ${_duration}, ts: ${trackData.lastTimestamp} -> ${timestamp}, default: ${trackData.defaultFrameDuration}`);
+    // }
+    const duration = _duration > 0 ? _duration : trackData.defaultFrameDuration;
+    trackData.lastTimestamp = _duration > 0 ? timestamp : (trackData.lastTimestamp + duration);
 
     const moof = new Container('moof')
     const traf = new Container('traf')

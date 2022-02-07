@@ -96,7 +96,37 @@ export const aacSettings = (media: AACMedia, date: number, trackId: number) => {
    */
 
   const bitrate = Number(media.fmtp.parameters.bitrate) || 320000
-  const audioConfigBytes = parseInt(media.fmtp.parameters.config, 16)
+  // sometimes AAC fmtp.parameters.config much more that expected UInt16
+  /*
+              {
+                "bandwidth": "128",
+                "bwtype": "AS",
+                "control": "trackID=1",
+                "fmt": 97,
+                "fmtp": {
+                    "format": "97",
+                    "parameters": {
+                        "config": "121056E500",
+                        "indexdeltalength": "3",
+                        "indexlength": "3",
+                        "mode": "AAC-hbr",
+                        "profile-level-id": "1",
+                        "sizelength": "13"
+                    }
+                },
+                "port": 0,
+                "protocol": "RTP/AVP",
+                "rtpmap": {
+                    "clockrate": 44100,
+                    "encodingName": "MPEG4-GENERIC",
+                    "encodingParameters": "2",
+                    "payloadType": 97
+                },
+                "type": "audio"
+            }
+  */
+  // const audioConfigBytes = parseInt(media.fmtp.parameters.config, 16);
+  const audioConfigBytes = parseInt(media.fmtp.parameters.config.substr(0, 4), 16);
   const audioObjectType = (audioConfigBytes >>> 11) & 0x001f
 
   return {

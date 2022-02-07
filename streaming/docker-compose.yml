@@ -27,5 +27,6 @@ services:
     ports:
       - ${WS_RTSP_PORT:-8888}:80
     volumes:
-      - ./rtsp-ws-server/conf.d:/etc/nginx/conf.d
+      - ./rtsp-ws-server/nginx/conf.d:/etc/nginx/conf.d
       - ./rtsp-ws-server/html:/usr/share/nginx/html
+      - ./rtsp-ws-server/nginx/nginx.conf:/etc/nginx/nginx.conf
