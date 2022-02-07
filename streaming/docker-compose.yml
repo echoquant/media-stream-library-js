@@ -8,7 +8,7 @@ services:
     entrypoint: /bin/sh
     command:
       - '-c'
-      - ffmpeg -re -stream_loop -1 -i /media/${MP4_FILE:-badminton.mp4} -f rtsp -rtsp_transport tcp rtsp://rtsp:8554/${MP4_FILE:-badminton.mp4}
+      - ffmpeg -re -stream_loop -1 -i /media/${MP4_FILE:-badminton.mp4} -c copy -f rtsp -rtsp_transport tcp rtsp://rtsp:8554/${MP4_FILE:-badminton.mp4}
     volumes:
       - ./rtsp-streamer-server/media:/media
 
