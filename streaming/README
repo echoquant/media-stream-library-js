@@ -9,3 +9,5 @@ http://<this_server_ip>:8888/test/h264w.html
 
 # URL for player to play, (internal rtsp host used to proxy to)
 rtsp://rtsp:8554/badminton.mp4
+
+# Nice player test - http://this_server_ip:8888/test/h264-player.html
