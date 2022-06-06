@@ -26,6 +26,7 @@ export class Mp4Muxer extends Tube {
       objectMode: true,
       transform: function (msg: Message, encoding, callback) {
         if (msg.type === MessageType.SDP) {
+          console.log("Msg SDP", msg);
           /**
            * Arrival of SDP signals the beginning of a new movie.
            * Set up the ftyp and moov boxes.

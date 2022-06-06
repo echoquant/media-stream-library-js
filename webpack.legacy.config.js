@@ -4,6 +4,10 @@ module.exports = {
   target: 'web',
   entry: './lib/index.browser.ts',
   mode: 'production',
+          optimization: {
+                // We no not want to minimize our code.
+                minimize: false
+        },
   output: {
     library: 'mediaStreamLibrary',
     libraryTarget: 'umd',

@@ -64,6 +64,9 @@ export const h264Settings = (
 
    */
 
+  console.log("MEDIA", media);                                                                                     
+  console.log("MEDIA.FMTP", media.fmtp);                                                                           
+  console.log("MEDIA.FMTP.parameters", media.fmtp.parameters);
   const profileLevelId = media.fmtp.parameters['profile-level-id']
   const parameterSets = media.fmtp.parameters['sprop-parameter-sets']
     .split(',')
